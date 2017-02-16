@@ -33,7 +33,7 @@ function render(text) {
 
   setTimeout(resize, 4);
 
-  return h('div', {key: 'editor', className: 'editor'}, [
+  return h('div', {className: 'editor'}, [
     h('div', {key: 'draw', className: 'draw'}, pad(all(tree, []))),
     h('textarea', {
       key: 'area',

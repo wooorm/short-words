@@ -7,7 +7,7 @@
     "nlcst-to-string": "^2.0.0",
     "retext-english": "^2.0.0",
     "syllable": "^2.0.0",
-    "unified": "^5.1.0",
+    "unified": "^6.0.0",
     "virtual-dom": "^2.1.1"
   },
   "devDependencies": {

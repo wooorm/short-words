@@ -14,7 +14,7 @@
     "browserify": "^14.1.0",
     "bundle-collapser": "^1.2.1",
     "esmangle": "^1.0.1",
-    "xo": "^0.17.1"
+    "xo": "^0.18.0"
   },
   "scripts": {
     "build": "browserify -p bundle-collapser/plugin index.js | esmangle > build.js",

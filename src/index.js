@@ -12,9 +12,9 @@ var debounce = require('debounce');
 
 var processor = unified().use(english);
 var hue = hues();
-var root = doc.getElementById('root');
+var main = doc.getElementsByTagName('main')[0];
 var tree = render(doc.getElementsByTagName('template')[0].innerHTML);
-var dom = root.appendChild(createElement(tree));
+var dom = main.appendChild(createElement(tree));
 
 function onchange(ev) {
   var next = render(ev.target.value);
@@ -33,16 +33,47 @@ function render(text) {
 
   setTimeout(resize, 4);
 
-  return h('div', {className: 'editor'}, [
-    h('div', {key: 'draw', className: 'draw'}, pad(all(tree, []))),
-    h('textarea', {
-      key: 'area',
-      value: text,
-      oninput: change,
-      onpaste: change,
-      onkeyup: change,
-      onmouseup: change
-    })
+  return h('div', [
+    h('section.highlight', [
+      h('h1', {key: 'title'}, 'short words')
+    ]),
+    h('div', {key: 'editor', className: 'editor'}, [
+      h('div', {key: 'draw', className: 'draw'}, pad(all(tree, []))),
+      h('textarea', {
+        key: 'area',
+        value: text,
+        oninput: change,
+        onpaste: change,
+        onkeyup: change,
+        onmouseup: change
+      })
+    ]),
+    h('section.highlight', [
+      h('p', {key: 'intro'}, [
+        'Use short words. Short words are more powerful and less pretentious. ',
+        h('em', 'Stop'),
+        ' is stronger than ',
+        h('em', 'discontinue'),
+        '. Based on a tip by ',
+        h('a', {
+          href: 'http://www.garyprovost.com/_i__b__font_size___1__100_ways_to_improve_your_writing___font_size__font_size__2_109049.htm'
+        }, 'Gary Provost'),
+        ' (“Use Short Words”).'
+      ]),
+      h('p', {key: 'description'}, [
+        'The demo highlights words by syllable count. Short words are green. ',
+        'Longer words go through orange to red. Stay in the green.'
+      ])
+    ]),
+    h('section.credits', {key: 'credits'}, [
+      h('p', [
+        h('a', {href: 'https://github.com/wooorm/short-words'}, 'GitHub'),
+        ' • ',
+        h('a', {href: 'https://github.com/wooorm/short-words/blob/src/LICENSE'}, 'MIT'),
+        ' • ',
+        h('a', {href: 'http://wooorm.com'}, '@wooorm')
+      ])
+    ])
   ]);
 
   function all(node, parentIds) {

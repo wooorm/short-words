@@ -13,19 +13,36 @@
   "devDependencies": {
     "browserify": "^14.1.0",
     "bundle-collapser": "^1.2.1",
+    "cssnano": "^3.10.0",
     "esmangle": "^1.0.1",
+    "postcss-cli": "^4.1.0",
+    "rehype-cli": "^4.0.0",
+    "rehype-preset-minify": "^2.0.0",
+    "rehype-prevent-favicon-request": "^1.0.0",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
     "xo": "^0.18.0"
   },
   "scripts": {
-    "build": "browserify -p bundle-collapser/plugin index.js | esmangle > build.js",
-    "lint": "xo",
-    "test": "npm run build && npm run lint"
+    "build:js": "browserify -p bundle-collapser/plugin src/index.js | esmangle > dest/index.js",
+    "build:css": "postcss src/index.css > dest/index.css",
+    "build:html": "rehype -u preset-minify -u prevent-favicon-request src -o dest",
+    "build": "npm run build:js && npm run build:css && npm run build:html",
+    "lint": "xo && stylelint src/index.css",
+    "test": "npm run lint && npm run build"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard"
   },
   "xo": {
     "space": true,
-    "esnext": false,
-    "ignore": [
-      "build.js"
-    ]
+    "esnext": false
+  },
+  "postcss": {
+    "plugins": {
+      "cssnano": {
+        "preset": "default"
+      }
+    }
   }
 }

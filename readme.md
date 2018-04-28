@@ -1,4 +1,4 @@
-## short-words
+# short-words
 
 [![screenshot](screenshot.png)](http://wooorm.com/short-words)
 

@@ -74,7 +74,7 @@ function render(text) {
         ' • ',
         h(
           'a',
-          {href: 'https://github.com/wooorm/short-words/blob/src/LICENSE'},
+          {href: 'https://github.com/wooorm/short-words/blob/src/license'},
           'MIT'
         ),
         ' • ',

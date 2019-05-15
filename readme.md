@@ -1,9 +1,9 @@
 # short-words
 
-[![screenshot](screenshot.png)](http://wooorm.com/short-words)
+[![screenshot](screenshot.png)](https://wooorm.com/short-words)
 
 ## Related
 
-*   [common-words](http://github.com/wooorm/common-words)
-*   [readability](http://github.com/wooorm/readability)
-*   [write-music](http://github.com/wooorm/write-music)
+*   [common-words](https://github.com/wooorm/common-words)
+*   [readability](https://github.com/wooorm/readability)
+*   [write-music](https://github.com/wooorm/write-music)

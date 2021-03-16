@@ -1,14 +1,14 @@
-var doc = require('global/document')
-var win = require('global/window')
-var createElement = require('virtual-dom/create-element')
-var diff = require('virtual-dom/diff')
-var patch = require('virtual-dom/patch')
-var h = require('virtual-dom/h')
-var unified = require('unified')
-var english = require('retext-english')
-var syllable = require('syllable')
-var toString = require('nlcst-to-string')
-var debounce = require('debounce')
+import doc from 'global/document.js'
+import win from 'global/window.js'
+import createElement from 'virtual-dom/create-element.js'
+import diff from 'virtual-dom/diff.js'
+import patch from 'virtual-dom/patch.js'
+import h from 'virtual-dom/h.js'
+import unified from 'unified'
+import english from 'retext-english'
+import syllable from 'syllable'
+import toString from 'nlcst-to-string'
+import debounce from 'debounce'
 
 var processor = unified().use(english)
 var hue = hues()
@@ -95,7 +95,7 @@ function render(text) {
     var id = parentIds.join('-') + '-' + key
 
     if (styles) {
-      result = h('span', {key: id, id: id, style: styles}, result)
+      result = h('span', {key: id, id, style: styles}, result)
       key++
     }
 

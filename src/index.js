@@ -4,20 +4,20 @@ import createElement from 'virtual-dom/create-element.js'
 import diff from 'virtual-dom/diff.js'
 import patch from 'virtual-dom/patch.js'
 import h from 'virtual-dom/h.js'
-import unified from 'unified'
-import english from 'retext-english'
-import syllable from 'syllable'
-import toString from 'nlcst-to-string'
+import {unified} from 'unified'
+import retextEnglish from 'retext-english'
+import {syllable} from 'syllable'
+import {toString} from 'nlcst-to-string'
 import debounce from 'debounce'
 
-var processor = unified().use(english)
-var hue = hues()
-var main = doc.querySelectorAll('main')[0]
-var tree = render(doc.querySelectorAll('template')[0].innerHTML)
-var dom = main.appendChild(createElement(tree))
+const processor = unified().use(retextEnglish)
+const hue = hues()
+const main = doc.querySelectorAll('main')[0]
+let tree = render(doc.querySelectorAll('template')[0].innerHTML)
+let dom = main.appendChild(createElement(tree))
 
 function onchange(ev) {
-  var next = render(ev.target.value)
+  const next = render(ev.target.value)
   dom = patch(dom, diff(tree, next))
   tree = next
 }
@@ -27,9 +27,9 @@ function resize() {
 }
 
 function render(text) {
-  var tree = processor.runSync(processor.parse(text))
-  var change = debounce(onchange, 4)
-  var key = 0
+  const tree = processor.runSync(processor.parse(text))
+  const change = debounce(onchange, 4)
+  let key = 0
 
   setTimeout(resize, 4)
 
@@ -77,10 +77,10 @@ function render(text) {
   ])
 
   function all(node, parentIds) {
-    var children = node.children
-    var length = children.length
-    var index = -1
-    var results = []
+    const children = node.children
+    const length = children.length
+    let index = -1
+    let results = []
 
     while (++index < length) {
       results = results.concat(one(children[index], parentIds.concat(index)))
@@ -90,9 +90,9 @@ function render(text) {
   }
 
   function one(node, parentIds) {
-    var result = 'value' in node ? node.value : all(node, parentIds)
-    var styles = style(node)
-    var id = parentIds.join('-') + '-' + key
+    let result = 'value' in node ? node.value : all(node, parentIds)
+    const styles = style(node)
+    const id = parentIds.join('-') + '-' + key
 
     if (styles) {
       result = h('span', {key: id, id, style: styles}, result)
@@ -106,7 +106,7 @@ function render(text) {
   // `white-space: pre-wrap`.
   // Add a `br` to make the last newline explicit.
   function pad(nodes) {
-    var tail = nodes[nodes.length - 1]
+    const tail = nodes[nodes.length - 1]
 
     if (typeof tail === 'string' && tail.charAt(tail.length - 1) === '\n') {
       nodes.push(h('br', {key: 'break'}))
@@ -117,7 +117,7 @@ function render(text) {
 }
 
 function style(node) {
-  var result = {}
+  const result = {}
 
   if (node.type === 'WordNode') {
     result.backgroundColor = color(syllable(toString(node)))
@@ -126,12 +126,12 @@ function style(node) {
 }
 
 function color(count) {
-  var value = count < hue.length ? hue[count] : hue[hue.length - 1]
+  const value = count < hue.length ? hue[count] : hue[hue.length - 1]
   return 'hsla(' + [value, '93%', '50%', '0.5'].join(', ') + ')'
 }
 
 function hues() {
-  var colors = []
+  const colors = []
   colors[1] = 75
   colors[2] = 60
   colors[3] = 45
@@ -148,6 +148,6 @@ function rows(node) {
 
   return Math.ceil(
     node.getBoundingClientRect().height /
-      parseInt(win.getComputedStyle(node).lineHeight, 10)
+      Number.parseInt(win.getComputedStyle(node).lineHeight, 10)
   )
 }
